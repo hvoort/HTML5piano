@@ -309,7 +309,7 @@
 		}
 	};
 	
-	_private.Piano.Key = function(x, y, w, h, fill, stroke, afill, astroke) {
+	_private.Piano.Key = function(x, y, w, h, fill, stroke, afill, astroke, note) {
 		this.x				= x;
 		this.y				= y;
 		this.width			= w;
@@ -319,6 +319,7 @@
 		this.stroke			= stroke;
 		this.activeFill		= afill;
 		this.activeStroke	= astroke;
+		this.note			= note;
 	};
 	
 	_private.Piano.Key.map = {
@@ -375,7 +376,8 @@
 					options.whiteKeyFill,
 					options.whiteKeyStroke,
 					options.activeKeyFill,
-					options.activeKeyStroke);
+					options.activeKeyStroke,
+					key);
 				keyData.white.dx += keyData.white.width; 
 				if(keyData.last === "w") { keyData.black.dx += keyData.white.width; }
 				keyData.last = "w";
@@ -388,7 +390,8 @@
 					options.blackKeyFill,
 					options.blackKeyStroke,
 					options.activeKeyFill,
-					options.activeKeyStroke);
+					options.activeKeyStroke,
+					key);
 				keyData.black.dx += keyData.white.width;
 				keyData.last = "b";
 			}
@@ -429,6 +432,7 @@
 			if(!this.pressed) {	
 				_private.Piano.stopAudio(this.audio);			
 				this.audio.play();
+				addNoot(this.note);
 				this.pressed = true;
 			}
 		},

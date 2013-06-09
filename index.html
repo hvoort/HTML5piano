@@ -7,18 +7,47 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <!--[if lt IE 9]>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"></script><![endif]-->
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 </head>
 
 <body>
-	<div id="piano"></div>
-	<script src="html5piano.js"></script>
-	<script>
-		Piano.load("piano", {
-			width: 550, 
-			height: 550,
-			backgroundFill: "#333"
-		});
-	</script>
+<input id="noten" />
+<button id="noten_reset" >Reset</button>
+<button id="noten_submit" >Submit</button>
+<div id="piano"></div>
+<script src="html5piano.js"></script>
+<script type="text/javascript">
+var 	noten, noten_reset, noten_submit;
+
+function addNoot(noot) {
+	var old_val = noten.val();
+	noten.val(old_val + (old_val === "" ? "" : ",") + noot);
+}
+
+function reset() {
+	noten.val('');
+}
+
+function submit() {
+	var noten_value = noten.val();
+	alert(noten_value);
+	// window.location = "/target.html?noten-query=" + noten_value;
+}
+
+$(document).ready(function () {
+	noten_reset = $("#noten_reset");
+	noten_submit = $("#noten_submit");
+	noten = $("#noten");
+	noten_reset.on("click", reset);
+	noten_submit.on("click", submit);
+
+	Piano.load("piano", {
+		width: 550, 
+		height: 550,
+		backgroundFill: "#333"
+	});
+});
+</script>
 </body>
 
 </html>
